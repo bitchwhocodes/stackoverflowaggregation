@@ -8,6 +8,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+ul a{
+   color:#6C7A89;
+}
 .step{
       font-family: 'Open Sans', sans-serif;
     font-weight:700;

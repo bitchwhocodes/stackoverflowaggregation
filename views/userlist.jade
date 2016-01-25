@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div.container
+        h1.title User List
+        ul.listings
+            each user, i in userlist
+                li
+                    a(href="mailto:#{user.useremail}")= user.useremail

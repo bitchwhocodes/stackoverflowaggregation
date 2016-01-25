@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    div.container
+    h1.title= title 
+        each val, index in tags
+            h4.title= index
+            ul.nobullet
+                each item in val
+                    li
+                        a(href='/listtags/'+item.Tag)=item.Tag
+
+        

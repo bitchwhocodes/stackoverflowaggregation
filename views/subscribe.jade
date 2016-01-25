@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    div.container
+        div.row
+            h1.title= title
+            p Sign up to get the lastest unanswered questions from StackOverflow sent to your email
+            h2.step STEP 1
+            h3.section Enter Email 
+            form#formAddUser(name="adduser",method="post",action="/subscribe")
+                label.email(for="useremail") Email Address
+                input#inputUserEmail(type="text", placeholder="useremail", name="useremail")
+                div
+                    h2.step STEP 2
+                    h3.section Select Tags
+                each val, index in tags
+                    div
+                
+                        h4.title= index
+                        ul.nobullet
+                            each item, i in val
+                                li
+                                
+                                    input(type="checkbox", name='tags', value=item.Tag checked="true")
+                                    label(for="checkbox")=item.Tag
+                    
+                
+                div
+                        h2.step STEP 3
+                        h3.section Schedule 
+                        p How often do you want to get emails?
+                       
+                        div.radio-buttons
+                                div
+                                    input(type="radio", name="email-pref", value="day" checked="true")
+                                    label(for="radio") Daily  
+                                div
+                                    input(type="radio", name="email-pref", value="week" checked="true")
+                                    label(for="radio") Weekly
+            
+                        button#btnSubmit(type="submit") submit
+        

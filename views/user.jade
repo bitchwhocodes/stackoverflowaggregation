@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div.container
+        h1.title Summary #{user}
+        each val, index in data
+            h4.title.user= index
+            ul.listings
+                each item in val
+                    li
+                        a(href=item.link)=item.title
+block footer
+  
+    

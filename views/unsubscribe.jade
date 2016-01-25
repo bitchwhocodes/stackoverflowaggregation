@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    div.container.unsubscribe
+        h1.title= title
+        p Unsubscribe your email address
+        form#formAddUser(name="adduser",method="post",action="/unsubscribe")
+            input#inputUserEmail(type="text", placeholder="useremail", name="useremail" value=useremail)
+            div.submit
+                button#btnSubmit(type="submit") submit
+            

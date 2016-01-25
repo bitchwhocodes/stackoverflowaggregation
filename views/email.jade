@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title= title
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,300' rel='stylesheet' type='text/css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+
+    div.container
+        h1.title Summary #{user}
+        each val, index in data
+            h4.title.user= index
+            ul.listings
+                each item in val
+                    li
+                        a(href=item.link)=item.title
+
+    div.row
+        h4 You can unsubscribe if you want to... you can leave this crap behind...
+        a(href=unsubscribe) UNSUBSCRIBE ME PLEASE KTHNKSBAI

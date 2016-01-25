@@ -4,6 +4,10 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var url = process.env.DB_CONNECT;
 
+var request = require('request');
+
+// to be implemented. 
+
 var times =[
     {
         "value":"9AM",
@@ -86,13 +90,20 @@ function formatItemsForList(items)
 
 router.post('/', function(req, res, next) {
      // Get our form values. These rely on the "name" attributes
-
+       var hostname = req.protocol + '://' + req.get('host');
+       var emailLink = hostname + "/email/user/"+ req.body.useremail;
        MongoClient.connect(url, function(err, db) {
         var collection = db.collection('users');
         req.body.isActive = true;//set user to be active
         collection.update({"useremail":req.body.useremail},req.body,{upsert:true},function(err,result){
            db.close();
-           res.render('subscribecomplete', { title: 'Consider Yerself Subscribed' });
+           
+            request(emailLink, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                res.render('subscribecomplete', { title: 'Consider Yerself Subscribed',link:emailLink });
+            }
+            })
+           
         })
      
     });

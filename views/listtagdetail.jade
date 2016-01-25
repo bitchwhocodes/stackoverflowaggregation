@@ -3,12 +3,16 @@ extends layout
 block content
     div.container
         h1.title=title
-        h3.title 
-            span.count #{items.length}
-            |  Unanswered questions just waiting for you
-        ul.listings
-            each item in items
-            
-                    li
-                        a(href=item.link)=item.title
-        
+        if items.length > 1
+            h3.title
+                span.count #{items.length}
+                |  Unanswered questions just waiting for you
+            ul.listings
+                each item in items
+                
+                        li
+                            a(href=item.link)=item.title
+        else
+            h3.title
+                span.count Nada.Zip.Zilch
+                |  There are no new unanswered questions.

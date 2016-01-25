@@ -21,7 +21,44 @@ router.get('/:time', function (req, res, next) {
             getUsers(time,callback);
         },
         function (items, callback) {
-            async.forEachSeries(items, function (item, callback_s1) {
+           doTagRetrieval(items,callback);
+        }
+
+
+    ], function (err) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ success: true,message:"Email has been sent" }));
+    }
+   )
+
+});
+
+router.get('/user/:email', function (req, res, next) {
+    var email = req.params.email;
+    
+    hostname = req.protocol + '://' + req.get('host');
+    //Let's get the ball rollin, a rollin 
+    async.waterfall([
+        function (callback) {
+            getUser(email,callback);
+        },
+        function (items, callback) {
+           doTagRetrieval(items,callback);
+        }
+
+
+    ], function (err) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ success: true ,message:"Email has been sent"}));
+    }
+   )
+
+});
+
+function doTagRetrieval(items, callback)
+{
+   
+     async.forEachSeries(items, function (item, callback_s1) {
                 //console.log(item);
                 async.waterfall([
                     function (callback_s2) {
@@ -45,17 +82,9 @@ router.get('/:time', function (req, res, next) {
                 function () {
                     // entire process for all users are done at this point
                     callback(null);
-                })
-        }
-
-
-    ], function (err) {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ success: true }));
-    }
-   )
-
-});
+                });
+    
+}
 
 // need to determine todays date
 // if its daily they get sent. 
@@ -65,6 +94,14 @@ function getUsers(time,callback) {
     MongoClient.connect(url, function (err, db) {
         var collection = db.collection('users');
         collection.find({ 'isActive': true,'email-pref':time }).toArray(callback);
+    });
+}
+
+function getUser(email,callback) {
+   
+    MongoClient.connect(url, function (err, db) {
+        var collection = db.collection('users');
+        collection.find({ 'useremail':email }).toArray(callback);
     });
 }
 
@@ -98,6 +135,7 @@ function renderHTML(userEmail,results,callback)
 
 function sendEmail(userEmail, html, callback) {
 
+    console.log("send email")
     var email = new sendgrid.Email();
     email.addTo(userEmail);
     email.setFrom("dothis@andgetweird.com");

@@ -125,7 +125,7 @@ function renderHTML(userEmail,results,callback)
   var resultData = utilities.formatData(results); 
   var unsubscribeLink = hostname + "/unsubscribe?useremail=" + userEmail;
   var locals = {data:resultData,unsubscribe:unsubscribeLink,user:userEmail}
-  var render = jade.compileFile('./views/email.jade');
+  var render = jade.compileFile('../views/email.jade');
   var html   = render(locals);
   callback(null,userEmail,html);
 

@@ -138,7 +138,7 @@ function sendEmail(userEmail, html, callback) {
     console.log("send email")
     var email = new sendgrid.Email();
     email.addTo(userEmail);
-    email.setFrom("dothis@andgetweird.com");
+    email.setFrom("getit@done.com");
     email.setSubject("[Stack Overflow] : Unanswered questions");
     email.setHtml(html);
     sendgrid.send(email);
